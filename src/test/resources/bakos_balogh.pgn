@@ -1,0 +1,17 @@
+[Event "Import"]
+[Site "https://lichess.org/tIOBKYB9"]
+[Date "2017.01.09"]
+[White "?"]
+[Black "?"]
+[Result "*"]
+[WhiteElo "?"]
+[BlackElo "?"]
+[PlyCount "65"]
+[Variant "Standard"]
+[TimeControl "-"]
+[ECO "A15"]
+[Opening "English Opening: Anglo-Indian Defense"]
+[Termination "Unterminated"]
+[Annotator "lichess.org"]
+
+1. c4 Nf6 { A15 English Opening: Anglo-Indian Defense } 2. g3 c5 3. Bg2 Nc6 4. Nf3 g6 5. d4 cxd4 6. Nxd4 Bg7 7. O-O O-O 8. Nc3 Qa5 9. Rb1 Qh5 10. e3 Qc5 11. b3 Rb8 12. Re1 Re8 13. Qd2 d6 14. Na4 Qh5 15. Nxc6 bxc6 16. Bxc6 Ng4 17. f4 Bf5 18. e4 Bd4+ 19. Qxd4 Qxh2+ 20. Kf1 Qh1+ 21. Ke2 Qg2+ 22. Kd3 Nf2+ 23. Kc3 e5 24. fxe5 dxe5 25. Qe3 Red8 26. exf5 Qxc6 27. Qxf2 e4 28. Bf4 Rd3+ 29. Kc2 Rbd8 30. Rbd1 Qd7 31. Nb2 gxf5 32. Nxd3 exd3+ 33. Kb1 *
