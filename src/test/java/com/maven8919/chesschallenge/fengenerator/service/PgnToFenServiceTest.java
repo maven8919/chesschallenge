@@ -1,35 +1,40 @@
 package com.maven8919.chesschallenge.fengenerator.service;
 
-import org.junit.Before;
-import org.junit.Test;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.io.File;
 import java.net.URL;
 
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.util.ResourceUtils;
+
+import com.maven8919.chesschallenge.fengenerator.service.impl.PgnToFenServiceImpl;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class PgnToFenServiceTest {
 
 	@Autowired
-	private PgnToFenService pgnToFenService;
+	private PgnToFenServiceImpl pgnToFenService;
 
-	private File BAKOS_BALOGH_PGN = null;
-	
-	@Before
-	public void setup() {
-		URL url = this.getClass().getResource("/bakos_balogh.pgn");
-		BAKOS_BALOGH_PGN = new File(url.getFile());
+	private File BAKOS_BALOGH_PGN = readPgnFileFromClasspath("/bakos_balogh.pgn");
+	private File TWIC1157 = readPgnFileFromClasspath("/twic1157.pgn");
+
+	@Test
+	public void bakosBaloghPgnShouldReturn1game() {
+		assertEquals(1, pgnToFenService.getAllGames(BAKOS_BALOGH_PGN).size());
 	}
 
 	@Test
-	public void bakosBaloghPgnShouldReturn66Fens() {
-		assertEquals(66, pgnToFenService.getAllFens(BAKOS_BALOGH_PGN));
+	public void bakosTwic1157ShouldReturn3075games() {
+		assertEquals(3075, pgnToFenService.getAllGames(TWIC1157).size());
+	}
+
+	private File readPgnFileFromClasspath(String pgnFileName) {
+		URL url = this.getClass().getResource(pgnFileName);
+		return new File(url.getFile());
 	}
 }
