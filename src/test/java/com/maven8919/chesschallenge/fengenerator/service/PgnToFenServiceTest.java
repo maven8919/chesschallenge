@@ -30,7 +30,7 @@ public class PgnToFenServiceTest {
 
 	@Test
 	public void bakosTwic1157ShouldReturn3075games() {
-		assertEquals(3075, pgnToFenService.getAllGames(TWIC1157).size());
+		assertEquals(3043, pgnToFenService.getAllGames(TWIC1157).size());
 	}
 
 	private File readPgnFileFromClasspath(String pgnFileName) {
