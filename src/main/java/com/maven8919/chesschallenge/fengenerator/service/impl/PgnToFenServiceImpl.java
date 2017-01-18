@@ -6,9 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -16,7 +14,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import com.maven8919.chesschallenge.fengenerator.domain.Fen;
 import com.maven8919.chesschallenge.fengenerator.service.PgnToFenService;
 
 @Service
@@ -29,10 +26,6 @@ public class PgnToFenServiceImpl implements PgnToFenService {
 	private static final String EMPTY_STRING = "";
 	private static final String ALL_POSSIBLE_RESULTS = "1-0|1/2-1/2|0-1";
 	private static final String TENTH_MOVE_STRING = "10.";
-	private static final int LENGTH_OF_1_DOT_SPACE = 3;
-	private static final String MOVE_SPLIT_REGEX = "\\s\\d+\\.\\s";
-	private static final Fen STARTING_FEN_POSITION = new Fen("rnbqkbnr", "pppppppp", "8", "8", "8", "8", "PPPPPPPP", "RNBQKBNR", 
-			"w", "KQkq", "-");
 
 	@Override
 	public List<String> getAllGames(File pgnFile) {
@@ -55,40 +48,14 @@ public class PgnToFenServiceImpl implements PgnToFenService {
 
 	@Override
 	public List<String> getGamesLongerThan10Moves(List<String> allGames) {
+		logger.info("Removing games that are less than 10 moves long.");
 		return allGames.stream().filter(game -> game.contains(TENTH_MOVE_STRING)).collect(Collectors.toList());
 	}
 
 	@Override
-	public List<Fen> getAllFens(String game) {
-		List<Fen> result = new ArrayList<>();
-		result.add(STARTING_FEN_POSITION);
-		List<String> pairOfMoves = getPairOfMoves(game);
-		pairOfMoves.stream()
-			.forEach(pair -> {
-				result.add(createFenPosition(getLastFen(result), pair.split(" ")[0]));
-				if (pairMoveHasBlackMove(pair)) {
-					result.add(createFenPosition(getLastFen(result), pair.split(" ")[1]));					
-				}
-			});
-		return result.size() >= 19 ? result.subList(19, result.size()) : Collections.<Fen>emptyList();
-	}
-
-	private boolean pairMoveHasBlackMove(String pair) {
-		return pair.split(" ").length == 2;
-	}
-
-	private Fen createFenPosition(Fen previousFen, String move) {
-		Fen result = new Fen(previousFen);
-		return result;
-	}
-
-	private List<String> getPairOfMoves(String game) {
-		String gameWOFirstMovenindicator = game.substring(LENGTH_OF_1_DOT_SPACE);
-		return Arrays.asList(gameWOFirstMovenindicator.split(MOVE_SPLIT_REGEX));
-	}
-	
-	private Fen getLastFen(List<Fen> fens) {
-		return fens.get(fens.size() - 1);
+	public void writeGamesToFile(List<String> games) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
