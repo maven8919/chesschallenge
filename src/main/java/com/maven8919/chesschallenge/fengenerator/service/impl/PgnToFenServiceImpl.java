@@ -1,5 +1,6 @@
 package com.maven8919.chesschallenge.fengenerator.service.impl;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -33,12 +34,11 @@ public class PgnToFenServiceImpl implements PgnToFenService {
 		List<String> result = new ArrayList<>();
 		try (Stream<String> lines = Files.lines(Paths.get(pgnFile.getAbsolutePath()))) {
 			String[] filteredLines = lines
-					.filter(line -> !line.startsWith(STARTING_BRACKET) && line.length() > 0 && line != CONTUMATED_GAME_SEPARATOR)
-					.map(line -> line + SPACE)
-					.collect(Collectors.joining(EMPTY_STRING)).split(ALL_POSSIBLE_RESULTS);
+					.filter(line -> !line.startsWith(STARTING_BRACKET) && line.length() > 0
+							&& line != CONTUMATED_GAME_SEPARATOR)
+					.map(line -> line + SPACE).collect(Collectors.joining(EMPTY_STRING)).split(ALL_POSSIBLE_RESULTS);
 			result = Arrays.asList(filteredLines).stream().filter(line -> line.length() > 1)
-					.map(line -> line.replaceAll(ALL_POSSIBLE_RESULTS, EMPTY_STRING))
-					.collect(Collectors.toList());
+					.map(line -> line.replaceAll(ALL_POSSIBLE_RESULTS, EMPTY_STRING).trim()).collect(Collectors.toList());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -53,9 +53,11 @@ public class PgnToFenServiceImpl implements PgnToFenService {
 	}
 
 	@Override
-	public void writeGamesToFile(List<String> games) {
-		// TODO Auto-generated method stub
-		
+	public long writeGamesToFile(List<String> games, String filename) throws IOException {
+		try (BufferedWriter writer = Files.newBufferedWriter(Paths.get(filename))) {
+			writer.write(games.stream().collect(Collectors.joining("\n", "", "")));
+		}
+		return Files.lines(Paths.get(filename)).count();
 	}
 
 }
