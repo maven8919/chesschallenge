@@ -9,5 +9,7 @@ public interface PgnToFenService {
 	List<String> getAllGames(File pgnFile);
 	List<String> getGamesLongerThan10Moves(List<String> allGames);
 	long writeGamesToFile(List<String> games, String filename) throws IOException;
+	List<String> getFensFromGame(String game);
+	
 	
 }

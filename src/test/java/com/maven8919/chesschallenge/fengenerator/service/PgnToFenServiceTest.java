@@ -48,6 +48,11 @@ public class PgnToFenServiceTest {
 			e.printStackTrace();
 		}
 	}
+	
+	@Test
+	public void exampleGameShouldReturn21PossiblyDuplicateFens() {
+		assertEquals(21, pgnToFenService.getFensFromGame(exampleGame).size());
+	}
 
 	private File readPgnFileFromClasspath(String pgnFileName) {
 		URL url = this.getClass().getResource(pgnFileName);

@@ -11,6 +11,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -58,6 +62,24 @@ public class PgnToFenServiceImpl implements PgnToFenService {
 			writer.write(games.stream().collect(Collectors.joining("\n", "", "")));
 		}
 		return Files.lines(Paths.get(filename)).count();
+	}
+
+	@Override
+	public List<String> getFensFromGame(String game) {
+		WebDriver driver = new FirefoxDriver();
+		driver.get("file:///D:/sts_workspace/pgn_to_fen_generator/converter.html");
+		WebElement pgnTextArea = driver.findElement(By.name("pgn"));
+		pgnTextArea.sendKeys(game);
+		WebElement convertButton = driver.findElement(By.xpath("//input[@value='Convert to FEN:']"));
+		convertButton.click();
+		WebElement fenTextArea = driver.findElement(By.name("fen"));
+		String fens = fenTextArea.getAttribute("value");
+		driver.close();
+		List<String> result = Arrays.asList(fens.split("\n"));
+		return result.stream()
+				.filter(fen -> fen.length() > 0)
+				.skip(18)
+				.collect(Collectors.toList());
 	}
 
 }
