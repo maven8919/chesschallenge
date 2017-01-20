@@ -1,10 +1,14 @@
-package com.maven8919.chesschallenge.fengenerator.domain;
+package com.maven8919.chesschallenge.fen.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = { "position", "playerToMove", "castlingPossibilities",
+		"enPassantTargetSquare" }))
 @Entity
 public class Fen {
 
@@ -26,15 +30,6 @@ public class Fen {
 		this.castlingPossibilities = castlingPossibilities;
 		this.enPassantTargetSquare = enPassantTargetSquare;
 		this.halfMove = 0;
-		this.fullMove = 0;
-	}
-
-	public Fen(Fen otherFen) {
-		this.position = otherFen.getPosition();
-		this.playerToMove = otherFen.getPlayerToMove();
-		this.castlingPossibilities = otherFen.getCastlingPossibilities();
-		this.enPassantTargetSquare = otherFen.getEnPassantTargetSquare();
-		this.halfMove += 1;
 		this.fullMove = 0;
 	}
 
@@ -96,6 +91,49 @@ public class Fen {
 
 	public String getNthRankPosition(int targetRank) {
 		return position.split("/")[targetRank - 1];
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((castlingPossibilities == null) ? 0 : castlingPossibilities.hashCode());
+		result = prime * result + ((enPassantTargetSquare == null) ? 0 : enPassantTargetSquare.hashCode());
+		result = prime * result + ((playerToMove == null) ? 0 : playerToMove.hashCode());
+		result = prime * result + ((position == null) ? 0 : position.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Fen other = (Fen) obj;
+		if (castlingPossibilities == null) {
+			if (other.castlingPossibilities != null)
+				return false;
+		} else if (!castlingPossibilities.equals(other.castlingPossibilities))
+			return false;
+		if (enPassantTargetSquare == null) {
+			if (other.enPassantTargetSquare != null)
+				return false;
+		} else if (!enPassantTargetSquare.equals(other.enPassantTargetSquare))
+			return false;
+		if (playerToMove == null) {
+			if (other.playerToMove != null)
+				return false;
+		} else if (!playerToMove.equals(other.playerToMove))
+			return false;
+		if (position == null) {
+			if (other.position != null)
+				return false;
+		} else if (!position.equals(other.position))
+			return false;
+		return true;
 	}
 
 }
