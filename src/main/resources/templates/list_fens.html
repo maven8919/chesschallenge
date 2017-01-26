@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/layout}">
+
+<head>
+<title>Chess Fight!</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<table>
+		<tr>
+			<th>Position</th>
+			<th>Player to move</th>
+			<th>Castling possibilities</th>
+			<th>EnPassant target square</th>
+		</tr>
+		<tr th:each="fen : ${fens}">
+			<td th:text="${fen.position}">Position</td>
+			<td th:text="${fen.playerToMove}">Player to move</td>
+			<td th:text="${fen.castlingPossibilities}">Castling possibilities</td>
+			<td th:text="${fen.enPassantTargetSquare}">EnPassant target square</td>
+		</tr>
+	</table>
+</body>
+</html>

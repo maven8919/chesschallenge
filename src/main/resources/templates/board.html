@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+
+<head>
+    <title>Chess Fight!</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="../static/css/chessboard-0.3.0.min.css"
+          th:href="@{/css/chessboard-0.3.0.min.css}"
+          rel="stylesheet" media="screen"/>
+    <script
+            src="https://code.jquery.com/jquery-3.1.1.min.js"
+            integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+            crossorigin="anonymous"></script>
+    <script src="../static/js/chessboard-0.3.0.min.js"
+            th:src="@{/js/chessboard-0.3.0.min.js}"></script>
+</head>
+<body>
+
+<div id="board" style="width: 400px"></div>
+<script>
+    var board = ChessBoard('board', 'start');
+</script>
+</body>
+</html>

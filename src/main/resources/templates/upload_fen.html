@@ -4,10 +4,13 @@
 	layout:decorate="~{layouts/layout}">
 
 <head>
-<title>Chess Challenge!</title>
+<title>Chess Fight!</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-	<h1>Chess challenge!</h1>
+	<form action="/upload_fen" th:action="@{/upload_fen}" method="post">
+		<input type="text" name="filePath" /> 
+		<input type="submit" />
+	</form>
 </body>
 </html>

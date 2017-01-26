@@ -22,6 +22,10 @@ public class Fen {
 	private String enPassantTargetSquare;
 	private int halfMove;
 	private int fullMove;
+	
+	public Fen() {
+		
+	}
 
 	public Fen(String position, String playerToMove, String castlingPossibilities, String enPassantTargetSquare) {
 		super();
@@ -134,6 +138,12 @@ public class Fen {
 		} else if (!position.equals(other.position))
 			return false;
 		return true;
+	}
+	
+	@Override
+	public String toString() {
+		return "Fen [position=" + position + ", playerToMove=" + playerToMove + ", castlingPossibilities="
+				+ castlingPossibilities + ", enPassantTargetSquare=" + enPassantTargetSquare + "]";
 	}
 
 }
